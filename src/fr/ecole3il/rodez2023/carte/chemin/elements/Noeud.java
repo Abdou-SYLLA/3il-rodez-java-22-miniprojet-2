@@ -7,6 +7,7 @@ import java.util.List;
  * Représente un nœud dans un graphe.
  * @param <E> Le type de la valeur associée au nœud.
  */
+
 public class Noeud<E> {
     private E valeur;
     private List<Noeud<E>> voisins;

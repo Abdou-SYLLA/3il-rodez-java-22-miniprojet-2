@@ -19,6 +19,7 @@ class TestGraphe {
     void tearDown() {
     }
 
+    //Test ajout arete
     @org.junit.jupiter.api.Test
     void testAjouterNoeud() {
         int valeurAvant = graphe.getNoeuds().size();
