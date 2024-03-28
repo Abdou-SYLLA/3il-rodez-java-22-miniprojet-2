@@ -18,6 +18,7 @@ public class Carte {
 
     /**
      * Récupère la tuile située aux coordonnées spécifiées.
+     *
      * @param x La coordonnée x de la tuile.
      * @param y La coordonnée y de la tuile.
      * @return La tuile située aux coordonnées spécifiées.
@@ -40,5 +41,10 @@ public class Carte {
      */
     public int getHauteur() {
         return tuiles[0].length;
+    }
+
+    public Case getCase(int x, int y) {
+        Tuile tuile = getTuile(x,y);
+        return new Case(tuile,x,y);
     }
 }
