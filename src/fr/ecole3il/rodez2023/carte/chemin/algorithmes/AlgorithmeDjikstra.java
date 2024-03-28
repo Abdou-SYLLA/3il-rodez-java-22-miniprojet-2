@@ -5,9 +5,12 @@ import fr.ecole3il.rodez2023.carte.chemin.elements.Noeud;
 
 import java.util.List;
 import java.util.Map;
-
 import java.util.*;
 
+/**
+ * Implémente l'algorithme de Dijkstra pour trouver le chemin le plus court entre deux nœuds dans un graphe.
+ * @param <E> Le type des éléments stockés dans les nœuds du graphe.
+ */
 public class AlgorithmeDjikstra<E> implements AlgorithmeChemin<E> {
     private Map<Noeud<E>, Double> couts;
     private Map<Noeud<E>, Noeud<E>> predecesseurs;
@@ -15,8 +18,11 @@ public class AlgorithmeDjikstra<E> implements AlgorithmeChemin<E> {
 
     private final Double INFINI = Double.MAX_VALUE;
 
-
-
+    /**
+     * Initialise les coûts et les prédecesseurs pour l'algorithme.
+     * @param graphe Le graphe dans lequel effectuer la recherche de chemin.
+     * @param depart Le nœud de départ.
+     */
     public void initialisationCout(Graphe<E> graphe, Noeud<E> depart) {
         couts = new HashMap<>();
         predecesseurs = new HashMap<>();
@@ -33,6 +39,12 @@ public class AlgorithmeDjikstra<E> implements AlgorithmeChemin<E> {
         }
     }
 
+    /**
+     * Explore les nœuds du graphe pour trouver le chemin le plus court.
+     * @param graphe Le graphe dans lequel effectuer la recherche de chemin.
+     * @param depart Le nœud de départ.
+     * @param arrivee Le nœud d'arrivée.
+     */
     public void explorationNoeuds(Graphe<E> graphe, Noeud<E> depart, Noeud<E> arrivee) {
         while (!filePriorite.isEmpty()) {
             Noeud<E> noeudActuel = filePriorite.poll();
@@ -51,6 +63,11 @@ public class AlgorithmeDjikstra<E> implements AlgorithmeChemin<E> {
         }
     }
 
+    /**
+     * Reconstruit le chemin à partir des prédecesseurs.
+     * @param arrivee Le nœud d'arrivée.
+     * @return Une liste de nœuds représentant le chemin reconstruit.
+     */
     public List<Noeud<E>> reconstructionChemin(Noeud<E> arrivee) {
         List<Noeud<E>> chemin = new ArrayList<>();
         Noeud<E> noeudActuel = arrivee;
@@ -62,6 +79,13 @@ public class AlgorithmeDjikstra<E> implements AlgorithmeChemin<E> {
         return chemin;
     }
 
+    /**
+     * Trouve le chemin le plus court entre deux nœuds dans un graphe en utilisant l'algorithme de Dijkstra.
+     * @param graphe Le graphe dans lequel effectuer la recherche de chemin.
+     * @param depart Le nœud de départ.
+     * @param arrivee Le nœud d'arrivée.
+     * @return Une liste de nœuds représentant le chemin le plus court trouvé.
+     */
     @Override
     public List<Noeud<E>> trouverChemin(Graphe<E> graphe, Noeud<E> depart, Noeud<E> arrivee) {
         initialisationCout(graphe, depart);
@@ -69,4 +93,3 @@ public class AlgorithmeDjikstra<E> implements AlgorithmeChemin<E> {
         return reconstructionChemin(arrivee);
     }
 }
-
