@@ -36,7 +36,7 @@ public class CarteGUI extends JFrame {
 		this.carte = carte;
 		this.caseDepart = null;
 		this.caseArrivee = null;
-		this.algorithme = new AlgorithmeDjikstra(); // Algorithme par défaut
+		this.algorithme = new AlgorithmeDjikstra<>();
 
 		setTitle("Carte");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -57,10 +57,11 @@ public class CarteGUI extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String choix = (String) algorithmeComboBox.getSelectedItem();
-				if (choix.equals("Dijkstra")) {
-					algorithme = new AlgorithmeDjikstra();
+                assert choix != null;
+                if (choix.equals("Dijkstra")) {
+					algorithme = new AlgorithmeDjikstra<>();
 				} else if (choix.equals("A*")) {
-					algorithme = new AlgorithmeAEtoile();
+					algorithme = new AlgorithmeAEtoile<>();
 				}
 			}
 		});
