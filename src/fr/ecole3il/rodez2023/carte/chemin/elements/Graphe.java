@@ -10,27 +10,14 @@ import java.util.*;
  */
 public class Graphe<E> {
     private List<Noeud<E>> noeuds;
-    private Map<Noeud<E>, Map<Noeud<E>, Double>> adjacence;
-
-    /**
-     * Récupère la pénalité associée à un nœud.
-     * @param noeud Le nœud pour lequel récupérer la pénalité.
-     * @return La pénalité associée au nœud.
-     */
-    public int getPenalite(Noeud<E> noeud) {
-        if (noeud.getValeur() instanceof Case) {
-            Case caseValue = (Case) noeud.getValeur();
-            return caseValue.getTuile().getPenalite();
-        }
-        return 0;
-    }
+    private Map<Noeud<E>, Map<Noeud<E>, Double>> matriceAdjacence;
 
     /**
      * Constructeur de la classe Graphe.
      */
     public Graphe() {
         this.noeuds = new ArrayList<>();
-        this.adjacence = new HashMap<>();
+        this.matriceAdjacence = new HashMap<>();
     }
 
     /**
@@ -40,7 +27,7 @@ public class Graphe<E> {
     public void ajouterNoeud(Noeud<E> noeud) {
         if (!noeuds.contains(noeud)) {
             noeuds.add(noeud);
-            adjacence.put(noeud, new HashMap<>());
+            Graphe.this.matriceAdjacence.put(noeud, new HashMap<>());
         }
     }
 
@@ -53,7 +40,7 @@ public class Graphe<E> {
     public void ajouterArete(Noeud<E> depart, Noeud<E> arrivee, double cout) {
         ajouterNoeud(depart);
         ajouterNoeud(arrivee);
-        adjacence.get(depart).put(arrivee, cout);
+        Graphe.this.matriceAdjacence.get(depart).put(arrivee, cout);
     }
 
     /**
@@ -63,7 +50,7 @@ public class Graphe<E> {
      * @return Le coût de l'arête entre les deux nœuds.
      */
     public double getCoutArete(Noeud<E> depart, Noeud<E> arrivee) {
-        return adjacence.get(depart).get(arrivee);
+        return Graphe.this.matriceAdjacence.get(depart).get(arrivee);
     }
 
     /**
@@ -80,10 +67,10 @@ public class Graphe<E> {
      * @return La liste des voisins du nœud.
      */
     public List<Noeud<E>> getVoisins(Noeud<E> noeud) {
-        if (!adjacence.containsKey(noeud)) {
+        if (!Graphe.this.matriceAdjacence.containsKey(noeud)) {
             return Collections.emptyList();
         }
-        return new ArrayList<>(adjacence.get(noeud).keySet());
+        return new ArrayList<>(Graphe.this.matriceAdjacence.get(noeud).keySet());
     }
 
     /**
@@ -94,28 +81,12 @@ public class Graphe<E> {
      */
     public Noeud<E> getNoeud(int nx, int ny) {
         for (Noeud<E> noeud : noeuds) {
-            if (noeud.getValeur() instanceof Case) {
-                Case caseValue = (Case) noeud.getValeur();
+            if (noeud.getValeur() instanceof Case caseValue) {
                 if (caseValue.getX() == nx && caseValue.getY() == ny) {
                     return noeud;
                 }
             }
         }
         return null;
-    }
-
-    /**
-     * Récupère le coût entre deux nœuds.
-     * @param noeudCourant Le nœud de départ.
-     * @param voisin Le nœud voisin.
-     * @return Le coût entre les deux nœuds.
-     * @throws IllegalArgumentException si aucune arête n'existe entre les nœuds fournis.
-     */
-    public Double getCout(Noeud<E> noeudCourant, Noeud<E> voisin) {
-        if (adjacence.containsKey(noeudCourant) && adjacence.get(noeudCourant).containsKey(voisin)) {
-            return adjacence.get(noeudCourant).get(voisin);
-        } else {
-            throw new IllegalArgumentException("Aucune arête n'existe entre les nœuds fournis.");
-        }
     }
 }

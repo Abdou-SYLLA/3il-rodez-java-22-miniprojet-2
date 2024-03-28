@@ -1,0 +1,8 @@
+
+Question 1: on peut utiliser un Map.
+
+Question 2:
+Les classes Noeud et Graphe ont été definies avec des parametres generique car cela facilite la creation de graphe differents.
+Par exemple : graphe de personne, de chien, de lettre.
+
+Question 3: Oui c'est une bonne pratique car ça permet d'abstraire la methode et pouvoir l'implementer pour differents algorithmes.

@@ -6,7 +6,7 @@ package fr.ecole3il.rodez2023.carte.elements;
  * @author proussille
  */
 public class Carte {
-    private Tuile[][] tuiles; // Matrice de tuiles représentant la carte
+    private final Tuile[][] tuiles;
 
     /**
      * Construit une nouvelle carte avec les tuiles spécifiées.
